@@ -7,7 +7,6 @@ WORKDIR /opt/kafka
 RUN curl https://www-us.apache.org/dist/kafka/2.3.0/kafka_2.12-2.3.0.tgz --output kafka.tgz \
 	&& tar -xvf kafka.tgz
 WORKDIR kafka_2.12-2.3.0
-COPY ./start_kafka.sh start_kafka.sh
-RUN cd config && sed -i "s/localhost/$KAFKA_ZOOKEEPER_CONNECT_HOST/g" server.properties \
-	&& sed -i "s/2181/$KAFKA_ZOOKEEPER_CONNECT_PORT/g" server.properties
-CMD []
+ADD ./start_kafka.sh start_kafka.sh
+RUN chmod +x start_kafka.sh
+CMD ["./start_kafka.sh"]
